@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <h5 class="my-3 border-bottom pb-2"> 영단어 등록</h5>
+    <form method="post">
+        {% csrf_token %}
+        <!--오류시-->
+        {% for field in form %}
+        {% if field.errors %}
+        <div>
+            <strong>{{ field.label }}</strong>
+            {{ field.errors}}
+        </div>
+        {% endif %}
+        {% endfor %}
+        <!--오류종료-->
+        <div class="mb-3">
+            <label for="english_vo">영단어</label>
+            <input type="text" class="form-control" name="english_vo" id="english_vo"
+            value="{{ form.english_vo.value|default_if_none:'' }}">
+        </div>
+        <div class="mb-3">
+            <label for="korean_vo">한글</label>
+            <input type="text" class="form-control" name="korean_vo" id="korean_vo"
+            value="{{ form.korean_vo.value|default_if_none:'' }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="number_vo">숫자</label>
+            <input type="text" class="form-control" name="number_vo" id="number_vo"
+            value="{{ form.number_vo.value|default_if_none:'' }}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">저장하기</button>
+    </form>
+</div>
+{% endblock %}
